@@ -5,7 +5,6 @@ import { optimizePng } from "../src/lib/png-optimizer.mjs"
 import { denoiseRgba, sharpenRgba } from "../src/lib/image-filters.mjs"
 import { createLatestTaskGate } from "../src/lib/preview-gate.mjs"
 import { clampSliderValue, computeUpscaleSize } from "../src/lib/image-sizing.mjs"
-import { createPreloadManager } from "../src/lib/model-preload.mjs"
 import { resizeRgba, enhanceRgba } from "../src/lib/image-worker-algorithms.mjs"
 
 const crcTable = Uint32Array.from({ length: 256 }, (_, n) => {
@@ -157,18 +156,6 @@ test("numeric slider values clamp to bounds and respect the configured step", ()
   assert.equal(clampSliderValue(-120, -100, 100), -100)
   assert.equal(clampSliderValue(1.54, 0.2, 3, 0.05), 1.55)
   assert.equal(clampSliderValue(Number.NaN, 0.2, 3, 0.05), 0.2)
-})
-
-test("model preload reports failures and retries instead of reporting ready", async () => {
-  let attempts = 0
-  const preload = createPreloadManager(async () => {
-    attempts += 1
-    if (attempts === 1) throw new Error("network")
-  })
-  assert.equal(await preload(), false)
-  assert.equal(await preload(), true)
-  assert.equal(await preload(), true)
-  assert.equal(attempts, 2)
 })
 
 test("worker Lanczos keeps requested dimensions and preserves constant color", () => {

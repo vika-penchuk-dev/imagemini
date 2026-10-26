@@ -5,7 +5,6 @@ import { HomePage } from "@/pages/home"
 import { CompressPage } from "@/pages/compress"
 import { ConvertPage } from "@/pages/convert"
 import { EnhancePage } from "@/pages/enhance"
-import { RemoveBgPage } from "@/pages/remove-bg"
 import { ResizePage } from "@/pages/resize"
 import { UpscalePage } from "@/pages/upscale"
 import { EditPage } from "@/pages/edit"
@@ -24,8 +23,6 @@ function Router() {
       return <EnhancePage />
     case "upscale":
       return <UpscalePage />
-    case "removeBg":
-      return <RemoveBgPage />
     case "resize":
       return <ResizePage />
     case "edit":

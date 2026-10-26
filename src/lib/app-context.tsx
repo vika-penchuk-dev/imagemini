@@ -7,7 +7,6 @@ export type Page =
   | "convert"
   | "enhance"
   | "upscale"
-  | "removeBg"
   | "resize"
   | "edit"
   | "batch"

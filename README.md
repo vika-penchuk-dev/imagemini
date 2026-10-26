@@ -1,6 +1,6 @@
 # ImageMini — Image Processing & Photo Editing
 
-A browser-based toolkit for processing and editing images. ImageMini runs image operations locally in your browser, with Web Workers used for selected CPU-intensive tasks and background removal.
+A browser-based toolkit for processing and editing images. ImageMini runs image operations locally in your browser, with Web Workers used for selected CPU-intensive tasks.
 
 [Русская версия](README.ru.md)
 
@@ -14,7 +14,6 @@ ImageMini combines everyday image processing with a focused photo editor. It was
 - Conversion between JPEG, PNG, and WebP
 - Image enhancement with adjustable controls and presets
 - Image resizing and Lanczos interpolation upscaling
-- Local AI background removal with BiRefNet Lite 512
 - Editor tools for crop, rotate, and flip
 - Patch tool with Flat and Texture modes
 - Lasso selections and temporary image layers
@@ -34,7 +33,6 @@ Screenshots and the editor GIF are not included yet. The available browser sessi
 - React 19 and TypeScript
 - Vite 7
 - Tailwind CSS 4 and Radix UI
-- ONNX Runtime Web 1.21.0
 - Canvas 2D and Web Workers
 - fflate for ZIP output and PNG optimization
 
@@ -54,13 +52,9 @@ npm run build
 npm run preview
 ```
 
-## Background removal
-
-ImageMini downloads BiRefNet Lite 512 on first use from a pinned Hugging Face revision. The model is about 98.5 MB and is not stored in this repository. ImageMini checks the downloaded bytes against a pinned SHA-256 digest and caches the verified model with the browser Cache API. Images are processed locally. A compatible WebGPU backend is used when available; otherwise ONNX Runtime Web uses WASM, which may be slow on CPU-only devices. The model weights are MIT licensed; required copyright notices are in [`public/licenses/BiRefNet-LICENSE.txt`](public/licenses/BiRefNet-LICENSE.txt). ONNX Runtime Web's MIT notice is in [`public/licenses/ONNX-Runtime-LICENSE.txt`](public/licenses/ONNX-Runtime-LICENSE.txt). See [`THIRD_PARTY_NOTICES.md`](THIRD_PARTY_NOTICES.md).
-
 ## Architecture
 
-The application is organized as a Vite SPA. `src/pages/` contains operation screens, `src/components/` contains shared UI and editor workspaces, and `src/lib/` contains image processing, geometry, file output, localization, and worker code. Canvas 2D handles most transformations. Background removal, enhancement previews, resizing, patching, and other selected operations run in Web Workers to keep work off the UI thread. The background removal worker lazily initializes ONNX Runtime Web and downloads and verifies the model only when needed. More detail is in [`docs/ARCHITECTURE.md`](docs/ARCHITECTURE.md).
+The application is organized as a Vite SPA. `src/pages/` contains operation screens, `src/components/` contains shared UI and editor workspaces, and `src/lib/` contains image processing, geometry, file output, localization, and worker code. Canvas 2D handles most transformations. Enhancement previews, resizing, patching, and other selected operations run in Web Workers to keep work off the UI thread. More detail is in [`docs/ARCHITECTURE.md`](docs/ARCHITECTURE.md).
 
 ## Testing
 
@@ -72,11 +66,10 @@ npm test
 npm run build
 ```
 
-Release-preparation checks (2026-10-26): `npm run typecheck` passed, `npm test` passed (69/69), and `npm run build` passed. `npm audit` and `npm audit --omit=dev` report 0 vulnerabilities.
+Release checks (2026-10-26): `npm run typecheck` passed, `npm test` passed (64/64), `npm run build` passed, and `npm audit` reported 0 vulnerabilities.
 
 ## Limitations
 
-- WASM background removal can take tens of seconds on CPU-only devices.
 - Patch quality depends on the chosen donor area; complex textures and lighting can leave visible seams.
 - Large images and Lanczos upscaling can take several seconds and are bounded by browser canvas limits.
 - AVIF, HEIC, and TIFF input depend on browser decoder support.

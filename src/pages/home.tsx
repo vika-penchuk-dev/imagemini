@@ -2,7 +2,6 @@ import {
   FileDown,
   RefreshCw,
   Wand2,
-  Scissors,
   Ratio,
   ZoomIn,
   PenTool,
@@ -16,13 +15,12 @@ import { Card, CardContent } from "@/components/ui/card"
 const OPERATIONS: {
   page: Page
   icon: React.ComponentType<{ className?: string }>
-  titleKey: "compress" | "convert" | "enhance" | "upscale" | "removeBg" | "resize" | "edit" | "batch"
+  titleKey: "compress" | "convert" | "enhance" | "upscale" | "resize" | "edit" | "batch"
 }[] = [
   { page: "compress", icon: FileDown, titleKey: "compress" },
   { page: "convert", icon: RefreshCw, titleKey: "convert" },
   { page: "enhance", icon: Wand2, titleKey: "enhance" },
   { page: "upscale", icon: ZoomIn, titleKey: "upscale" },
-  { page: "removeBg", icon: Scissors, titleKey: "removeBg" },
   { page: "resize", icon: Ratio, titleKey: "resize" },
   { page: "edit", icon: PenTool, titleKey: "edit" },
   { page: "batch", icon: Layers, titleKey: "batch" },

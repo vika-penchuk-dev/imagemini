@@ -30,22 +30,6 @@ self.addEventListener("fetch", (event) => {
   const url = new URL(request.url)
   if (url.origin !== self.location.origin) return
 
-  // Model + wasm assets: cache-first (large, immutable)
-  if (url.pathname.startsWith("/models/")) {
-    event.respondWith(
-      caches.match(request).then(
-        (hit) =>
-          hit ||
-          fetch(request).then((response) => {
-            const copy = response.clone()
-            caches.open(CACHE_NAME).then((cache) => cache.put(request, copy))
-            return response
-          })
-      )
-    )
-    return
-  }
-
   // App assets: network-first with cache fallback for offline use
   event.respondWith(
     fetch(request)
