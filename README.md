@@ -72,11 +72,7 @@ npm test
 npm run build
 ```
 
-Results from the release-preparation run:
-
-- `npm run typecheck` — не выполнен: после неудачного `npm ci` локальная команда `tsc` отсутствует.
-- `npm test` — 58 пройдено, 1 не пройден: не найден установленный пакет `fflate` после частичной очистки npm.
-- `npm run build` — не выполнена: локальная команда `tsc` отсутствует.
+Release-preparation checks (2026-10-26): `npm run typecheck` passed, `npm test` passed (69/69), and `npm run build` passed. `npm audit` and `npm audit --omit=dev` report 0 vulnerabilities.
 
 ## Limitations
 
