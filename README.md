@@ -23,7 +23,7 @@ ImageMini is a working browser-based MVP for everyday image processing. It compr
 - Enhance images with adjustable controls and presets
 - Resize images by dimensions, percentage, or long side
 - Enlarge images by 1.5×, 2×, 3×, or 4× with Lanczos interpolation
-- Edit images with crop, rotate, flip, patch tools, lasso selections, and temporary layers with soft and hard erasers
+- Editor with crop, rotate, flip, canvas zoom, patch tools, and temporary layers for selecting, copying, and moving fragments; soft and hard erasers; Undo/Redo
 - Process batches with progress, cancellation, individual downloads, and ZIP export
 - Use the interface in English or Russian, with light, dark, or system theme
 
@@ -71,8 +71,6 @@ npm audit
 - Patch results depend on the selected donor area; complex textures and lighting can leave visible seams.
 - Large images and Lanczos upscaling can take several seconds and are bounded by browser canvas limits.
 - AVIF, HEIC, and TIFF input depend on browser decoder support.
-- Vite warns that the main JavaScript chunk exceeds its 500 kB warning threshold.
-- The text tool is currently disabled.
 
 ## License
 
